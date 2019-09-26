@@ -1,8 +1,10 @@
 const score = document.querySelector('.score'),
   start = document.querySelector('.start'),
-  gameArea = document.querySelector('.gameArea');
+  gameArea = document.querySelector('.gameArea'),
   car = document.createElement('div');
-  car.classList.add('car');
+
+car.classList.add('car');
+//gameArea.classList.add('hide');
 
 start.addEventListener('click', startGame);
 document.addEventListener('keydown', startRun);
@@ -23,14 +25,33 @@ const setting = {
 
 function startGame() {
   start.classList.add('hide');
+  //gameArea.classList.remove('hide');
   setting.start = true;
   gameArea.appendChild(car);
+  setting.x = car.offsetLeft;
+  setting.y = car.offsetTop;
   requestAnimationFrame(playGame);
 }
 
 function playGame() {
   console.log('Play game!');
-  if (setting.start) requestAnimationFrame(playGame);
+  if (setting.start) {
+    if (keys.ArrowLeft && setting.x>0) {
+      setting.x -= setting.speed;
+    }
+    if(keys.ArrowRight && setting.x < (gameArea.offsetWidth - car.offsetWidth)) {
+      setting.x += setting.speed;
+    }
+    if (keys.ArrowDown && setting.y < (gameArea.offsetHeight - car.offsetHeight)) {
+      setting.y += setting.speed;
+    }
+    if (keys.ArrowUp && setting.y > 0) {
+      setting.y -= setting.speed;
+    }
+    car.style.left = setting.x + 'px';
+    car.style.top = setting.y + 'px';
+    requestAnimationFrame(playGame);
+  }
 }
 
 function startRun(event) {
