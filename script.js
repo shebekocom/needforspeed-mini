@@ -28,14 +28,14 @@ const setting = {
 }
 
 function getQuantityElements(heightElement) {
-  return document.documentElement.clientHeight / heightElement + 1;
+  return Math.ceil(gameArea.offsetHeight / heightElement);
 }
 
 function startGame() {
   start.classList.add('hide');
   playMusic();
 
-  for (let i = 0; i < getQuantityElements(100); i++) {
+  for (let i = 0; i < getQuantityElements(20); i++) {
     const line = document.createElement('div');
     line.classList.add('line');
     line.style.top = (i * 100) + 'px';
@@ -53,13 +53,17 @@ function startGame() {
     enemy.style.top = enemy.y + 'px';
     enemy.style.background = `transparent url(image/enemy${enemyImg}.png) center / cover no-repeat`;
     gameArea.appendChild(enemy);
-  }
+
+    }
+
 
   setting.start = true;
   gameArea.appendChild(car);
   setting.x = car.offsetLeft;
   setting.y = car.offsetTop;
   requestAnimationFrame(playGame);
+
+  
 }
 
 function playGame() {
@@ -81,6 +85,8 @@ function playGame() {
     car.style.left = setting.x + 'px';
     car.style.top = setting.y + 'px';
     requestAnimationFrame(playGame);
+  } else {
+    music.remove();
   }
 }
 
@@ -105,7 +111,7 @@ function moveRoad() {
     line.y += setting.speed;
     line.style.top = line.y + 'px';
 
-    if (line.y >= document.documentElement.clientHeight) {
+    if (line.y >= gameArea.offsetHeight) {
       line.y = -100;
     }
 
@@ -114,10 +120,20 @@ function moveRoad() {
 
 function moveEnemy() {
   let enemy = document.querySelectorAll('.enemy');
+
   enemy.forEach(function (item) {
+    let carRect = car.getBoundingClientRect();
+    let enemyRect = item.getBoundingClientRect();
+    if (carRect.top <= enemyRect.bottom && 
+      carRect.right >= enemyRect.left &&
+      carRect.left <= enemyRect.right &&
+      carRect.bottom >= enemyRect.top) {
+      setting.start = false;
+      console.log('ДТП');
+    }
     item.y += setting.speed / 2;
     item.style.top = item.y + 'px';
-    if (item.y >= document.documentElement.clientHeight) {
+    if (item.y >= gameArea.offsetHeight) {
       item.y = -100 * setting.traffic;
       item.style.left = Math.floor(Math.random() * (gameArea.offsetWidth - 50)) + 'px';
     }
