@@ -54,7 +54,7 @@ function startGame() {
     enemy.style.background = `transparent url(image/enemy${enemyImg}.png) center / cover no-repeat`;
     gameArea.appendChild(enemy);
 
-    }
+  }
 
 
   setting.start = true;
@@ -62,8 +62,10 @@ function startGame() {
   setting.x = car.offsetLeft;
   setting.y = car.offsetTop;
   requestAnimationFrame(playGame);
-
   
+  setInterval(() => {
+    setting.speed += 2;
+  }, 18000);
 }
 
 function playGame() {
@@ -124,7 +126,7 @@ function moveEnemy() {
   enemy.forEach(function (item) {
     let carRect = car.getBoundingClientRect();
     let enemyRect = item.getBoundingClientRect();
-    if (carRect.top <= enemyRect.bottom && 
+    if (carRect.top <= enemyRect.bottom &&
       carRect.right >= enemyRect.left &&
       carRect.left <= enemyRect.right &&
       carRect.bottom >= enemyRect.top) {
