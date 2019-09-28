@@ -51,7 +51,7 @@ function startGame() {
     enemy.y = -100 * setting.traffic * (i + 1);
     enemy.style.left = Math.floor(Math.random() * (gameArea.offsetWidth - 50)) + 'px';
     enemy.style.top = enemy.y + 'px';
-    enemy.style.background = `transparent url(./image/enemy${enemyImg}.png) center / cover no-repeat`;
+    enemy.style.background = `transparent url(image/enemy${enemyImg}.png) center / cover no-repeat`;
     gameArea.appendChild(enemy);
   }
 
@@ -128,6 +128,6 @@ const playMusic = () => {
   music.setAttribute('autoplay', true);
   music.setAttribute('loop', true);
   music.setAttribute('controls', true);
-  music.setAttribute('src', './audio.mp3');
+  music.setAttribute('src', 'audio.mp3');
   gameArea.appendChild(music);
 }
