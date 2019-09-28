@@ -1,9 +1,12 @@
 const score = document.querySelector('.score'),
   start = document.querySelector('.start'),
   gameArea = document.querySelector('.gameArea'),
-  car = document.createElement('div');
+  car = document.createElement('div'),
+  music = document.createElement('audio');
 
+music.classList.add('music');
 car.classList.add('car');
+
 //gameArea.classList.add('hide');
 
 start.addEventListener('click', startGame);
@@ -30,6 +33,7 @@ function getQuantityElements(heightElement) {
 
 function startGame() {
   start.classList.add('hide');
+  playMusic();
 
   for (let i = 0; i < getQuantityElements(100); i++) {
     const line = document.createElement('div');
@@ -41,11 +45,11 @@ function startGame() {
 
   for (let i = 0; i < getQuantityElements(100 * setting.traffic); i++) {
     const enemy = document.createElement('div');
-    let enemyImg = Math.floor(Math.random()*2)+1;
+    let enemyImg = Math.floor(Math.random() * (3 - 1) + 1);
     console.log(enemyImg);
     enemy.classList.add('enemy');
     enemy.y = -100 * setting.traffic * (i + 1);
-    enemy.style.left = Math.floor(Math.random() * (gameArea.offsetWidth-50)) + 'px';
+    enemy.style.left = Math.floor(Math.random() * (gameArea.offsetWidth - 50)) + 'px';
     enemy.style.top = enemy.y + 'px';
     enemy.style.background = `transparent url(./image/enemy${enemyImg}.png) center / cover no-repeat`;
     gameArea.appendChild(enemy);
@@ -82,7 +86,7 @@ function playGame() {
 
 function startRun(event) {
   event.preventDefault();
-  if (keys.hasOwnProperty(event.key)){
+  if (keys.hasOwnProperty(event.key)) {
     keys[event.key] = true;
   }
   console.log(keys);
@@ -118,4 +122,12 @@ function moveEnemy() {
       item.style.left = Math.floor(Math.random() * (gameArea.offsetWidth - 50)) + 'px';
     }
   });
+}
+
+const playMusic = () => {
+  music.setAttribute('autoplay', true);
+  music.setAttribute('loop', true);
+  music.setAttribute('controls', true);
+  music.setAttribute('src', './audio.mp3');
+  gameArea.appendChild(music);
 }

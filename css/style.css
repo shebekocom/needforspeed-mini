@@ -37,3 +37,8 @@
   background: #ffffff;
   left: 145px;
 }
+
+.music {
+  position: absolute;
+  z-index: 5;
+}
