@@ -3,6 +3,7 @@ const score = document.querySelector('.score'),
   gameArea = document.querySelector('.gameArea'),
   car = document.createElement('div'),
   music = document.createElement('audio');
+let timer;
 
 music.classList.add('music');
 car.classList.add('car');
@@ -24,7 +25,8 @@ const setting = {
   start: false,
   score: 0,
   speed: 3,
-  traffic: 3
+  traffic: 3,
+  startSpeed: 3
 }
 
 function getQuantityElements(heightElement) {
@@ -33,6 +35,8 @@ function getQuantityElements(heightElement) {
 
 function startGame() {
   start.classList.add('hide');
+  gameArea.innerHTML = '';
+  
   playMusic();
 
   for (let i = 0; i < getQuantityElements(20); i++) {
@@ -53,17 +57,19 @@ function startGame() {
     enemy.style.top = enemy.y + 'px';
     enemy.style.background = `transparent url(image/enemy${enemyImg}.png) center / cover no-repeat`;
     gameArea.appendChild(enemy);
-
   }
 
-setting.score =0;
+  setting.score = 0;
   setting.start = true;
   gameArea.appendChild(car);
+  car.style.left = '125px';
+  car.style.top = 'auto';
+  car.style.bottom = '10px';
   setting.x = car.offsetLeft;
   setting.y = car.offsetTop;
   requestAnimationFrame(playGame);
 
-  setInterval(() => {
+  timer = setInterval(() => {
     setting.speed += 2;
   }, 18000);
 }
@@ -72,8 +78,11 @@ function playGame() {
   if (setting.start) {
     setting.score += setting.speed;
     score.textContent = 'Score: ' + setting.score;
+
     moveRoad();
     moveEnemy();
+
+
     if (keys.ArrowLeft && setting.x > 0) {
       setting.x -= setting.speed;
     }
@@ -93,6 +102,7 @@ function playGame() {
     music.remove();
   }
 }
+
 
 function startRun(event) {
   event.preventDefault();
@@ -133,6 +143,10 @@ function moveEnemy() {
       carRect.left <= enemyRect.right &&
       carRect.bottom >= enemyRect.top) {
       setting.start = false;
+      start.classList.remove('hide');
+      start.style.top = '50%';
+      clearInterval(timer);
+      setting.speed = setting.startSpeed;
       console.log('ДТП');
     }
     item.y += setting.speed / 2;
