@@ -41,11 +41,13 @@ function startGame() {
 
   for (let i = 0; i < getQuantityElements(100 * setting.traffic); i++) {
     const enemy = document.createElement('div');
+    let enemyImg = Math.floor(Math.random()*2)+1;
+    console.log(enemyImg);
     enemy.classList.add('enemy');
     enemy.y = -100 * setting.traffic * (i + 1);
     enemy.style.left = Math.floor(Math.random() * (gameArea.offsetWidth-50)) + 'px';
     enemy.style.top = enemy.y + 'px';
-    enemy.style.background = 'transparent url(./image/enemy2.png) center / cover no-repeat';
+    enemy.style.background = `transparent url(./image/enemy${enemyImg}.png) center / cover no-repeat`;
     gameArea.appendChild(enemy);
   }
 
@@ -80,12 +82,17 @@ function playGame() {
 
 function startRun(event) {
   event.preventDefault();
-  keys[event.key] = true;
+  if (keys.hasOwnProperty(event.key)){
+    keys[event.key] = true;
+  }
+  console.log(keys);
 }
 
 function stopRun(event) {
   event.preventDefault();
-  keys[event.key] = false;
+  if (keys.hasOwnProperty(event.key)) {
+    keys[event.key] = false;
+  }
 }
 
 function moveRoad() {
