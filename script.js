@@ -56,13 +56,13 @@ function startGame() {
 
   }
 
-
+setting.score =0;
   setting.start = true;
   gameArea.appendChild(car);
   setting.x = car.offsetLeft;
   setting.y = car.offsetTop;
   requestAnimationFrame(playGame);
-  
+
   setInterval(() => {
     setting.speed += 2;
   }, 18000);
@@ -70,6 +70,8 @@ function startGame() {
 
 function playGame() {
   if (setting.start) {
+    setting.score += setting.speed;
+    score.textContent = 'Score: ' + setting.score;
     moveRoad();
     moveEnemy();
     if (keys.ArrowLeft && setting.x > 0) {

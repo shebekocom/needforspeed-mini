@@ -42,3 +42,35 @@
   position: absolute;
   z-index: 5;
 }
+
+.start {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  margin: 0;
+  padding: 2rem 0;
+  text-align: center;
+  z-index: 200;
+  color: #ffffff;
+  font-size: 1.5rem;
+  background: #000000;
+  cursor: pointer;
+  font-family: sans-serif;
+  font-weight: 700;
+}
+
+.score {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #000000;
+  padding: 1rem 0;
+  z-index: 200;
+  font-size: 1.5rem;
+  color: skyblue;
+  text-align: center;
+  font-family: sans-serif;
+  font-weight: 500px;
+}
