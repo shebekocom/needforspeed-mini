@@ -22,6 +22,7 @@
 }
 
 .gameArea {
+  display: none;
   width: 300px;
   height: 100vh;
   position: relative;
@@ -46,7 +47,7 @@
 .start {
   position: absolute;
   left: 0;
-  top: 0;
+  top: 50%;
   width: 100%;
   margin: 0;
   padding: 2rem 0;
@@ -61,6 +62,7 @@
 }
 
 .score {
+  display: none;
   position: absolute;
   top: 0;
   left: 0;

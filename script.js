@@ -35,6 +35,8 @@ function getQuantityElements(heightElement) {
 
 function startGame() {
   start.classList.add('hide');
+  score.style.display = 'block';
+  gameArea.style.display = 'block';
   gameArea.innerHTML = '';
   
   playMusic();
