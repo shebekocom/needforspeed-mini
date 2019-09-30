@@ -3,7 +3,8 @@ const score = document.querySelector('.score'),
   gameArea = document.querySelector('.gameArea'),
   car = document.createElement('div'),
   music = document.createElement('audio');
-let timer;
+let timer,
+  topScore = localStorage.getItem('topScore');
 
 music.classList.add('music');
 car.classList.add('car');
@@ -38,7 +39,7 @@ function startGame() {
   score.style.display = 'block';
   gameArea.style.display = 'block';
   gameArea.innerHTML = '';
-  
+
   playMusic();
 
   for (let i = 0; i < getQuantityElements(20); i++) {
@@ -150,6 +151,10 @@ function moveEnemy() {
       clearInterval(timer);
       setting.speed = setting.startSpeed;
       console.log('ДТП');
+      if (topScore < setting.score) {
+        localStorage.setItem('topScore', setting.score);
+      }
+
     }
     item.y += setting.speed / 2;
     item.style.top = item.y + 'px';
